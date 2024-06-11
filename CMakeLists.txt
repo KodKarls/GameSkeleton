@@ -11,3 +11,7 @@ add_executable(GameSkeleton ${SOURCE_FILES})
 include_directories(game_skeleton)
 
 target_link_libraries(GameSkeleton game_skeleton)
+
+if (NOT EXISTS ${CMAKE_BINARY_DIR}/res)
+    file(COPY ${CMAKE_SOURCE_DIR}/res DESTINATION ${CMAKE_BINARY_DIR})
+endif()
