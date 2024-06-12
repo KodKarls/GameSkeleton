@@ -8,6 +8,7 @@ include_directories(libs/SFML-2.6.1/include)
 add_library(game_skeleton
             function_test_file.cpp
             Game.cpp
+            TimeStep.cpp
             Window.cpp)
 
 target_link_libraries(game_skeleton sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
