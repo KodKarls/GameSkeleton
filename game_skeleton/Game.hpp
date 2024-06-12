@@ -2,6 +2,8 @@
 
 #include "Window.hpp"
 
+#include <memory>
+
 class Game
 {
 public:
@@ -16,12 +18,12 @@ public:
     sf::Time getElapsed();
     void restartClock();
 
-    Window* getWindow();
+    std::unique_ptr< Window >& getWindow();
 
 private:
     void moveMushroom();
 
-    Window m_window;
+    std::unique_ptr< Window > m_window;
     sf::Clock m_clock;
     sf::Time m_elapsed;
 

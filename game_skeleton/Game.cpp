@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game() : m_window( "Simple Game", sf::Vector2u{ 800, 600 } )
+Game::Game() : m_window( std::make_unique< Window >( "Simple Game", sf::Vector2u{ 800, 600 } ) )
 {
     restartClock();
     srand( time( NULL ) );
@@ -22,17 +22,17 @@ void Game::handleInput()
 
 void Game::update()
 {
-    m_window.update();
+    m_window->update();
     moveMushroom();
 }
 
 void Game::render()
 {
-    m_window.beginDraw();
+    m_window->beginDraw();
 
-    m_window.draw( m_mushroomSprite );
+    m_window->draw( m_mushroomSprite );
 
-    m_window.endDraw();
+    m_window->endDraw();
 }
 
 sf::Time Game::getElapsed()
@@ -45,14 +45,14 @@ void Game::restartClock()
     m_elapsed = m_clock.restart();
 }
 
-Window* Game::getWindow()
+std::unique_ptr< Window >& Game::getWindow()
 {
-    return &m_window;
+    return m_window;
 }
 
 void Game::moveMushroom()
 {
-    sf::Vector2u windowSize = m_window.getWindowSize();
+    sf::Vector2u windowSize = m_window->getWindowSize();
     sf::Vector2u textureSize = m_mushroomTexture.getSize();
 
     if( ( m_mushroomSprite.getPosition().x > windowSize.x - textureSize.x && m_increment.x > 0 ) ||
