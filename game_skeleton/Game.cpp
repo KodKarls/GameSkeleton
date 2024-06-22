@@ -1,9 +1,10 @@
 #include "Game.hpp"
+#include "TimeStep.hpp"
 
 Game::Game() : m_window( std::make_unique< Window >( "Simple Game", sf::Vector2u{ 800, 600 } ) )
 {
-    restartClock();
-    srand( time( NULL ) );
+    //restartClock();
+    //srand( time( NULL ) );
 
     m_mushroomTexture.loadFromFile( "res/images/mushroom.png" );
     m_mushroomSprite.setTexture( m_mushroomTexture );
@@ -20,10 +21,11 @@ void Game::handleInput()
     // Input handle
 }
 
-void Game::update()
+void Game::update(TimeStep& timeStep)
 {
     m_window->update();
-    moveMushroom();
+
+    moveMushroom(timeStep);
 }
 
 void Game::render()
@@ -35,22 +37,12 @@ void Game::render()
     m_window->endDraw();
 }
 
-sf::Time Game::getElapsed()
-{
-    return m_elapsed;
-}
-
-void Game::restartClock()
-{
-    m_elapsed = m_clock.restart();
-}
-
 std::unique_ptr< Window >& Game::getWindow()
 {
     return m_window;
 }
 
-void Game::moveMushroom()
+void Game::moveMushroom(TimeStep& timeStep)
 {
     sf::Vector2u windowSize = m_window->getWindowSize();
     sf::Vector2u textureSize = m_mushroomTexture.getSize();
@@ -67,7 +59,7 @@ void Game::moveMushroom()
         m_increment.y = -m_increment.y;
     }
 
-    float elapsed = m_elapsed.asSeconds();
+    float elapsed = timeStep.getDeltaTime();
 
     m_mushroomSprite.setPosition( m_mushroomSprite.getPosition().x + ( m_increment.x * elapsed ),
                                   m_mushroomSprite.getPosition().y + ( m_increment.y * elapsed ) );

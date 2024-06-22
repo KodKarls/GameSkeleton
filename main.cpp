@@ -1,15 +1,15 @@
 #include "Game.hpp"
+#include "TimeStep.hpp"
 
 int main()
 {
     Game game;
-
+    TimeStep timeStep;
     while( !game.getWindow()->isDone() )
     {
         game.handleInput();
-        game.update();
+        game.update(timeStep);
         game.render();
-        game.restartClock();
     }
 
     return 0;
