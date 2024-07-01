@@ -4,7 +4,7 @@ project(GameSkeleton)
 set(CMAKE_CXX_STANDARD 17)
 
 set(ROOT_DIR ${CMAKE_SOURCE_DIR})
-set(GAME_SKELETON_DIR game_skeleton)
+set(GAME_SKELETON_DIR ${ROOT_DIR}/game_skeleton)
 set(GAME_SKELETON_LIB game_skeleton)
 set(SFML_INCLUDE_DIR libs/SFML-2.6.1/include)
 set(SFML_DIR ${ROOT_DIR}/libs/SFML-2.6.1/lib/cmake/SFML)
